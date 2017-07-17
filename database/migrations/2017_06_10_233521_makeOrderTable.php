@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVoteTable extends Migration
+class MakeOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,17 @@ class CreateVoteTable extends Migration
      */
     public function up()
     {
-        Schema::create('votes', function(Blueprint $table)
-        {
+        Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('vote_type');
-
+            $table->string('title');
+            $table->string('menu_items');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
-            $table->integer('thread_id')->unsigned()->nullable();
-            $table->foreign('thread_id')
-                ->references('id')->on('threads')
-                ->onDelete('cascade');
-
-            $table->integer('comment_id')->unsigned()->nullable();
-            $table->foreign('comment_id')
-                ->references('id')->on('comments')
-                ->onDelete('cascade');
+            $table->integer('restaurant_id')->unsigned()->nullable();
+            $table->foreign('restaurant_id')
+                ->references('id')->on('restaurants');
             $table->timestamps();
         });
     }
@@ -42,6 +35,6 @@ class CreateVoteTable extends Migration
      */
     public function down()
     {
-        Schema::drop('votes');
+        Schema::dropIfExists('orders');
     }
 }

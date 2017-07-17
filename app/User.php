@@ -29,7 +29,10 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
-
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
 
     /**
      * @return mixed
@@ -51,33 +54,4 @@ class User extends Authenticatable implements JWTSubject
              ]
         ];
     }
-
-
-    public function subs()
-    {
-        return $this->hasMany('App\Sub');
-    }
-
-    public function subscriptions()
-    {
-        return $this->hasMany('App\Subscriber');
-    }
-
-    public function threads()
-    {
-        return $this->hasMany('App\Thread');
-    }
-
-    public function comments()
-    {
-        return $this->hasMany('App\Comment');
-    }
-
-
-    public function votes()
-    {
-        return $this->hasMany('App\Vote');
-    }
-
-
 }
